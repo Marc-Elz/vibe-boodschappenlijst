@@ -9,8 +9,8 @@
 
     body {
       font-family: system-ui, sans-serif;
-      background: #f5f5f3;
-      color: #1a1a1a;
+      background: #f7fee7;
+      color: #1a2e05;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -26,6 +26,7 @@
       font-size: 22px;
       font-weight: 500;
       margin-bottom: 1.5rem;
+      color: #1a2e05;
     }
 
     .input-row {
@@ -38,21 +39,26 @@
       flex: 1;
       padding: 9px 12px;
       font-size: 15px;
-      border: 1px solid #d1d0c9;
+      border: 1px solid #a3e635;
       border-radius: 8px;
       background: #fff;
+      color: #1a2e05;
       outline: none;
       transition: border-color 0.15s;
     }
 
+    .input-row input::placeholder {
+      color: #86a856;
+    }
+
     .input-row input:focus {
-      border-color: #888;
+      border-color: #65a30d;
     }
 
     .input-row button {
       padding: 9px 18px;
       font-size: 15px;
-      background: #1a1a1a;
+      background: #65a30d;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -61,12 +67,12 @@
     }
 
     .input-row button:hover {
-      background: #333;
+      background: #4d7c0f;
     }
 
     .count {
       font-size: 13px;
-      color: #888;
+      color: #4d7c0f;
       margin-bottom: 0.75rem;
     }
 
@@ -82,13 +88,13 @@
       gap: 12px;
       padding: 11px 14px;
       background: #fff;
-      border: 1px solid #e0dfd8;
+      border: 1px solid #d9f99d;
       border-radius: 8px;
       transition: background 0.15s;
     }
 
     .product-item:hover {
-      background: #fafaf8;
+      background: #f7fee7;
     }
 
     .product-item.checked {
@@ -97,7 +103,7 @@
 
     .product-item.checked .product-name {
       text-decoration: line-through;
-      color: #888;
+      color: #86a856;
     }
 
     input[type="checkbox"] {
@@ -105,12 +111,13 @@
       height: 16px;
       cursor: pointer;
       flex-shrink: 0;
-      accent-color: #1a1a1a;
+      accent-color: #65a30d;
     }
 
     .product-name {
       flex: 1;
       font-size: 15px;
+      color: #1a2e05;
     }
 
     .delete-btn {
@@ -120,23 +127,23 @@
       padding: 4px 8px;
       cursor: pointer;
       font-size: 18px;
-      color: #aaa;
+      color: #86a856;
       line-height: 1;
       transition: color 0.15s, border-color 0.15s, background 0.15s;
     }
 
     .delete-btn:hover {
-      color: #c0392b;
-      border-color: #f5c6c2;
-      background: #fdf0ef;
+      color: #9f1239;
+      border-color: #fecdd3;
+      background: #fff1f2;
     }
 
     .empty {
       text-align: center;
       padding: 2.5rem;
-      color: #aaa;
+      color: #86a856;
       font-size: 14px;
-      border: 1px dashed #d1d0c9;
+      border: 1px dashed #a3e635;
       border-radius: 8px;
     }
   </style>
