@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productenlijst</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f5f5f3;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 3rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1.25rem;
+    }
+
+    .input-row input {
+      flex: 1;
+      padding: 9px 12px;
+      font-size: 15px;
+      border: 1px solid #d1d0c9;
+      border-radius: 8px;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .input-row input:focus {
+      border-color: #888;
+    }
+
+    .input-row button {
+      padding: 9px 18px;
+      font-size: 15px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .input-row button:hover {
+      background: #333;
+    }
+
+    .count {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      background: #fff;
+      border: 1px solid #e0dfd8;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .product-item:hover {
+      background: #fafaf8;
+    }
+
+    .product-item.checked {
+      opacity: 0.5;
+    }
+
+    .product-item.checked .product-name {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      flex-shrink: 0;
+      accent-color: #1a1a1a;
+    }
+
+    .product-name {
+      flex: 1;
+      font-size: 15px;
+    }
+
+    .delete-btn {
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 18px;
+      color: #aaa;
+      line-height: 1;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+
+    .delete-btn:hover {
+      color: #c0392b;
+      border-color: #f5c6c2;
+      background: #fdf0ef;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 2.5rem;
+      color: #aaa;
+      font-size: 14px;
+      border: 1px dashed #d1d0c9;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Productenlijst</h1>
+
+    <div class="input-row">
+      <input type="text" id="productInput" placeholder="Nieuw product toevoegen..." />
+      <button onclick="addProduct()">+ Toevoegen</button>
+    </div>
+
+    <div id="count" class="count" style="display:none;"></div>
+
+    <div id="productList" class="product-list">
+      <div class="empty" id="emptyMsg">Nog geen producten toegevoegd.</div>
+    </div>
+  </div>
+
+  <script>
+    let products = [];
+
+    const input = document.getElementById('productInput');
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') addProduct(); });
+
+    function addProduct() {
+      const name = input.value.trim();
+      if (!name) { input.focus(); return; }
+      products.push({ id: Date.now(), name, checked: false });
+      input.value = '';
+      input.focus();
+      render();
+    }
+
+    function deleteProduct(id) {
+      products = products.filter(p => p.id !== id);
+      render();
+    }
+
+    function toggleProduct(id) {
+      const p = products.find(p => p.id === id);
+      if (p) p.checked = !p.checked;
+      render();
+    }
+
+    function render() {
+      const list = document.getElementById('productList');
+      const emptyMsg = document.getElementById('emptyMsg');
+      const countEl = document.getElementById('count');
+
+      emptyMsg.style.display = products.length === 0 ? '' : 'none';
+      countEl.style.display = products.length === 0 ? 'none' : '';
+
+      const checked = products.filter(p => p.checked).length;
+      countEl.textContent = products.length + ' product' + (products.length !== 1 ? 'en' : '') + ' · ' + checked + ' afgevinkt';
+
+      list.querySelectorAll('.product-item').forEach(el => el.remove());
+
+      products.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'product-item' + (p.checked ? ' checked' : '');
+
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = p.checked;
+        cb.addEventListener('change', () => toggleProduct(p.id));
+
+        const span = document.createElement('span');
+        span.className = 'product-name';
+        span.textContent = p.name;
+
+        const btn = document.createElement('button');
+        btn.className = 'delete-btn';
+        btn.textContent = '🗑';
+        btn.title = 'Verwijder ' + p.name;
+        btn.addEventListener('click', () => deleteProduct(p.id));
+
+        item.appendChild(cb);
+        item.appendChild(span);
+        item.appendChild(btn);
+        list.appendChild(item);
+      });
+    }
+  </script>
+</body>
+</html>
