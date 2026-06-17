@@ -18,159 +18,166 @@
     }
 
     .container { width: 100%; max-width: 560px; }
-
     h1 { font-size: 22px; font-weight: 500; margin-bottom: 1.5rem; color: #1a2e05; }
 
-    .input-row { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+    .input-row { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
 
     .input-row input[type="text"] {
-      flex: 1;
-      padding: 9px 12px;
-      font-size: 15px;
-      border: 1px solid #a3e635;
-      border-radius: 8px;
-      background: #fff;
-      color: #1a2e05;
-      outline: none;
+      flex: 1; min-width: 120px;
+      padding: 9px 12px; font-size: 15px;
+      border: 1px solid #a3e635; border-radius: 8px;
+      background: #fff; color: #1a2e05; outline: none;
       transition: border-color 0.15s;
     }
-
     .input-row input[type="text"]::placeholder { color: #86a856; }
     .input-row input[type="text"]:focus { border-color: #65a30d; }
 
-    .qty-input {
-      width: 64px;
-      padding: 9px 8px;
-      font-size: 15px;
-      border: 1px solid #a3e635;
-      border-radius: 8px;
-      background: #fff;
-      color: #1a2e05;
-      outline: none;
-      text-align: center;
+    select {
+      padding: 9px 10px; font-size: 15px;
+      border: 1px solid #a3e635; border-radius: 8px;
+      background: #fff; color: #1a2e05; outline: none; cursor: pointer;
       transition: border-color 0.15s;
     }
+    select:focus { border-color: #65a30d; }
 
+    .qty-input {
+      width: 60px; padding: 9px 8px; font-size: 15px;
+      border: 1px solid #a3e635; border-radius: 8px;
+      background: #fff; color: #1a2e05; outline: none;
+      text-align: center; transition: border-color 0.15s;
+    }
     .qty-input:focus { border-color: #65a30d; }
 
-    .input-row button {
-      padding: 9px 18px;
-      font-size: 15px;
-      background: #65a30d;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.15s;
-      white-space: nowrap;
+    .add-btn {
+      padding: 9px 18px; font-size: 15px;
+      background: #65a30d; color: #fff; border: none;
+      border-radius: 8px; cursor: pointer;
+      transition: background 0.15s; white-space: nowrap;
     }
-
-    .input-row button:hover { background: #4d7c0f; }
+    .add-btn:hover { background: #4d7c0f; }
 
     .toolbar {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.75rem;
-      min-height: 22px;
+      margin-bottom: 0.75rem; min-height: 22px;
     }
-
     .count { font-size: 13px; color: #4d7c0f; }
-
     .clear-btn {
-      font-size: 13px;
-      color: #9f1239;
-      background: none;
-      border: 1px solid #fecdd3;
-      border-radius: 6px;
-      padding: 3px 10px;
-      cursor: pointer;
-      transition: background 0.15s;
+      font-size: 13px; color: #9f1239; background: none;
+      border: 1px solid #fecdd3; border-radius: 6px;
+      padding: 3px 10px; cursor: pointer; transition: background 0.15s;
     }
-
     .clear-btn:hover { background: #fff1f2; }
+
+    .category-section { margin-bottom: 1.25rem; }
+
+    .category-header {
+      display: flex; align-items: center;
+      gap: 8px; margin-bottom: 6px; padding: 0 2px;
+    }
+    .category-label {
+      font-size: 12px; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.06em; color: #4d7c0f;
+    }
+    .category-line { flex: 1; height: 1px; background: #d9f99d; }
+    .category-count { font-size: 12px; color: #86a856; }
 
     .product-list { display: flex; flex-direction: column; gap: 6px; }
 
     .product-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      background: #fff;
-      border: 1px solid #d9f99d;
-      border-radius: 8px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px; background: #fff;
+      border: 1px solid #d9f99d; border-radius: 8px;
       transition: background 0.15s;
     }
-
     .product-item:hover { background: #ecfccb; }
-
     .product-item.checked { background: #d9f99d; border-color: #a3e635; }
     .product-item.checked .product-name { text-decoration: line-through; color: #3f6212; }
     .product-item.checked .qty-display { color: #3f6212; }
 
     input[type="checkbox"] {
       width: 16px; height: 16px;
-      cursor: pointer; flex-shrink: 0;
-      accent-color: #65a30d;
+      cursor: pointer; flex-shrink: 0; accent-color: #65a30d;
     }
 
     .product-name { flex: 1; font-size: 15px; color: #1a2e05; }
 
-    .qty-control {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex-shrink: 0;
+    .cat-badge {
+      display: none;
     }
 
+    .qty-control {
+      display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+    }
     .qty-btn {
       width: 26px; height: 26px;
-      border: 1px solid #a3e635;
-      border-radius: 6px;
-      background: #ecfccb;
-      color: #3f6212;
-      font-size: 16px;
-      line-height: 1;
-      cursor: pointer;
+      border: 1px solid #a3e635; border-radius: 6px;
+      background: #ecfccb; color: #3f6212;
+      font-size: 16px; line-height: 1; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, border-color 0.15s;
-      flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s; flex-shrink: 0;
     }
-
     .qty-btn:hover { background: #d9f99d; border-color: #65a30d; }
-
     .qty-display {
-      font-size: 14px;
-      font-weight: 500;
-      color: #4d7c0f;
-      min-width: 28px;
-      text-align: center;
+      font-size: 14px; font-weight: 500; color: #4d7c0f;
+      min-width: 28px; text-align: center;
     }
+
+    .edit-btn {
+      background: none; border: 1px solid transparent;
+      border-radius: 6px; padding: 4px 7px; cursor: pointer;
+      font-size: 15px; color: #86a856; line-height: 1;
+      transition: color 0.15s, border-color 0.15s, background 0.15s; flex-shrink: 0;
+    }
+    .edit-btn:hover { color: #4d7c0f; border-color: #a3e635; background: #ecfccb; }
 
     .delete-btn {
-      background: none;
-      border: 1px solid transparent;
-      border-radius: 6px;
-      padding: 4px 7px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #86a856;
-      line-height: 1;
-      transition: color 0.15s, border-color 0.15s, background 0.15s;
-      flex-shrink: 0;
+      background: none; border: 1px solid transparent;
+      border-radius: 6px; padding: 4px 7px; cursor: pointer;
+      font-size: 15px; color: #86a856; line-height: 1;
+      transition: color 0.15s, border-color 0.15s, background 0.15s; flex-shrink: 0;
     }
-
     .delete-btn:hover { color: #9f1239; border-color: #fecdd3; background: #fff1f2; }
 
     .empty {
-      text-align: center;
-      padding: 2.5rem;
-      color: #86a856;
-      font-size: 14px;
-      border: 1px dashed #a3e635;
-      border-radius: 8px;
+      text-align: center; padding: 2.5rem; color: #86a856;
+      font-size: 14px; border: 1px dashed #a3e635; border-radius: 8px;
     }
+
+    /* Edit overlay */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35); z-index: 100;
+      align-items: center; justify-content: center;
+    }
+    .overlay.open { display: flex; }
+    .modal {
+      background: #fff; border-radius: 12px;
+      padding: 1.5rem; width: 100%; max-width: 360px;
+      margin: 1rem; display: flex; flex-direction: column; gap: 12px;
+    }
+    .modal h2 { font-size: 16px; font-weight: 500; color: #1a2e05; }
+    .modal label { font-size: 13px; color: #4d7c0f; margin-bottom: 3px; display: block; }
+    .modal input[type="text"], .modal select {
+      width: 100%; padding: 9px 12px; font-size: 15px;
+      border: 1px solid #a3e635; border-radius: 8px;
+      background: #fff; color: #1a2e05; outline: none;
+      transition: border-color 0.15s;
+    }
+    .modal input[type="text"]:focus, .modal select:focus { border-color: #65a30d; }
+    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+    .btn-cancel {
+      padding: 8px 16px; font-size: 14px; background: none;
+      border: 1px solid #d9f99d; border-radius: 8px;
+      color: #4d7c0f; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-cancel:hover { background: #ecfccb; }
+    .btn-save {
+      padding: 8px 16px; font-size: 14px;
+      background: #65a30d; color: #fff; border: none;
+      border-radius: 8px; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-save:hover { background: #4d7c0f; }
   </style>
 </head>
 <body>
@@ -178,9 +185,22 @@
     <h1>Productenlijst</h1>
 
     <div class="input-row">
-      <input type="text" id="productInput" placeholder="Nieuw product toevoegen..." />
+      <input type="text" id="productInput" placeholder="Nieuw product..." />
+      <select id="categoryInput">
+        <option value="Overig">Overig</option>
+        <option value="Groente">Groente</option>
+        <option value="Fruit">Fruit</option>
+        <option value="Zuivel">Zuivel</option>
+        <option value="Vlees">Vlees</option>
+        <option value="Vis">Vis</option>
+        <option value="Brood">Brood</option>
+        <option value="Dranken">Dranken</option>
+        <option value="Diepvries">Diepvries</option>
+        <option value="Snacks">Snacks</option>
+        <option value="Huishouden">Huishouden</option>
+      </select>
       <input type="number" id="qtyInput" class="qty-input" value="1" min="1" max="999" />
-      <button onclick="addProduct()">+ Toevoegen</button>
+      <button class="add-btn" onclick="addProduct()">+ Toevoegen</button>
     </div>
 
     <div class="toolbar">
@@ -188,33 +208,69 @@
       <button class="clear-btn" id="clearBtn" onclick="clearAll()" style="display:none;">Wis alles</button>
     </div>
 
-    <div id="productList" class="product-list">
-      <div class="empty" id="emptyMsg">Nog geen producten toegevoegd.</div>
+    <div id="productList"></div>
+  </div>
+
+  <!-- Edit modal -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <h2>Product bewerken</h2>
+      <div>
+        <label>Naam</label>
+        <input type="text" id="editName" />
+      </div>
+      <div>
+        <label>Categorie</label>
+        <select id="editCategory">
+          <option value="Overig">Overig</option>
+          <option value="Groente">Groente</option>
+          <option value="Fruit">Fruit</option>
+          <option value="Zuivel">Zuivel</option>
+          <option value="Vlees">Vlees</option>
+          <option value="Vis">Vis</option>
+          <option value="Brood">Brood</option>
+          <option value="Dranken">Dranken</option>
+          <option value="Diepvries">Diepvries</option>
+          <option value="Snacks">Snacks</option>
+          <option value="Huishouden">Huishouden</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal()">Annuleren</button>
+        <button class="btn-save" onclick="saveEdit()">Opslaan</button>
+      </div>
     </div>
   </div>
 
   <script>
+    const CATEGORY_ORDER = ['Groente','Fruit','Zuivel','Vlees','Vis','Brood','Dranken','Diepvries','Snacks','Huishouden','Overig'];
+
     let products = JSON.parse(localStorage.getItem('producten') || '[]');
+    let editingId = null;
 
     const input = document.getElementById('productInput');
     const qtyInput = document.getElementById('qtyInput');
+    const catInput = document.getElementById('categoryInput');
+
     input.addEventListener('keydown', e => { if (e.key === 'Enter') addProduct(); });
     qtyInput.addEventListener('keydown', e => { if (e.key === 'Enter') addProduct(); });
+    document.getElementById('overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.getElementById('editName').addEventListener('keydown', e => { if (e.key === 'Enter') saveEdit(); });
 
-    function save() {
-      localStorage.setItem('producten', JSON.stringify(products));
-    }
+    function save() { localStorage.setItem('producten', JSON.stringify(products)); }
 
     function addProduct() {
       const name = input.value.trim();
       if (!name) { input.focus(); return; }
       const qty = Math.max(1, parseInt(qtyInput.value) || 1);
+      const category = catInput.value;
       const key = name.toLowerCase();
       const existing = products.find(p => p.name.toLowerCase() === key);
       if (existing) {
         existing.qty += qty;
       } else {
-        products.push({ id: Date.now(), name, qty, checked: false });
+        products.push({ id: Date.now(), name, qty, category, checked: false });
       }
       input.value = '';
       qtyInput.value = 1;
@@ -225,96 +281,161 @@
 
     function deleteProduct(id) {
       products = products.filter(p => p.id !== id);
-      save();
-      render();
+      save(); render();
     }
 
     function toggleProduct(id) {
       const p = products.find(p => p.id === id);
       if (p) p.checked = !p.checked;
-      save();
-      render();
+      save(); render();
     }
 
     function changeQty(id, delta) {
       const p = products.find(p => p.id === id);
       if (!p) return;
       p.qty = Math.max(1, p.qty + delta);
-      save();
-      render();
+      save(); render();
+    }
+
+    function openModal(id) {
+      const p = products.find(p => p.id === id);
+      if (!p) return;
+      editingId = id;
+      document.getElementById('editName').value = p.name;
+      document.getElementById('editCategory').value = p.category || 'Overig';
+      document.getElementById('overlay').classList.add('open');
+      document.getElementById('editName').focus();
+    }
+
+    function closeModal() {
+      document.getElementById('overlay').classList.remove('open');
+      editingId = null;
+    }
+
+    function saveEdit() {
+      const p = products.find(p => p.id === editingId);
+      if (!p) return;
+      const newName = document.getElementById('editName').value.trim();
+      const newCat = document.getElementById('editCategory').value;
+      if (newName) p.name = newName;
+      p.category = newCat;
+      save(); render(); closeModal();
     }
 
     function clearAll() {
       if (!confirm('Weet je zeker dat je alle producten wilt verwijderen?')) return;
-      products = [];
-      save();
-      render();
+      products = []; save(); render();
     }
 
     render();
 
     function render() {
       const list = document.getElementById('productList');
-      const emptyMsg = document.getElementById('emptyMsg');
       const countEl = document.getElementById('count');
       const clearBtn = document.getElementById('clearBtn');
 
-      emptyMsg.style.display = products.length === 0 ? '' : 'none';
-      countEl.style.visibility = products.length === 0 ? 'hidden' : 'visible';
-      clearBtn.style.display = products.length === 0 ? 'none' : '';
+      list.innerHTML = '';
 
+      if (products.length === 0) {
+        countEl.style.visibility = 'hidden';
+        clearBtn.style.display = 'none';
+        const empty = document.createElement('div');
+        empty.className = 'empty';
+        empty.textContent = 'Nog geen producten toegevoegd.';
+        list.appendChild(empty);
+        return;
+      }
+
+      countEl.style.visibility = 'visible';
+      clearBtn.style.display = '';
       const checked = products.filter(p => p.checked).length;
       countEl.textContent = products.length + ' product' + (products.length !== 1 ? 'en' : '') + ' · ' + checked + ' afgevinkt';
 
-      list.querySelectorAll('.product-item').forEach(el => el.remove());
-
+      const grouped = {};
       products.forEach(p => {
-        const item = document.createElement('div');
-        item.className = 'product-item' + (p.checked ? ' checked' : '');
+        const cat = p.category || 'Overig';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(p);
+      });
 
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.checked = p.checked;
-        cb.addEventListener('change', () => toggleProduct(p.id));
+      const orderedCats = CATEGORY_ORDER.filter(c => grouped[c]);
+      const extraCats = Object.keys(grouped).filter(c => !CATEGORY_ORDER.includes(c));
 
-        const span = document.createElement('span');
-        span.className = 'product-name';
-        span.textContent = p.name;
+      [...orderedCats, ...extraCats].forEach(cat => {
+        const items = grouped[cat];
+        const section = document.createElement('div');
+        section.className = 'category-section';
 
-        const qtyControl = document.createElement('div');
-        qtyControl.className = 'qty-control';
+        const header = document.createElement('div');
+        header.className = 'category-header';
+        const label = document.createElement('span');
+        label.className = 'category-label';
+        label.textContent = cat;
+        const line = document.createElement('div');
+        line.className = 'category-line';
+        const catCount = document.createElement('span');
+        catCount.className = 'category-count';
+        catCount.textContent = items.length;
+        header.appendChild(label);
+        header.appendChild(line);
+        header.appendChild(catCount);
+        section.appendChild(header);
 
-        const minBtn = document.createElement('button');
-        minBtn.className = 'qty-btn';
-        minBtn.textContent = '−';
-        minBtn.title = 'Minder';
-        minBtn.addEventListener('click', () => changeQty(p.id, -1));
+        const itemList = document.createElement('div');
+        itemList.className = 'product-list';
 
-        const qtyDisplay = document.createElement('span');
-        qtyDisplay.className = 'qty-display';
-        qtyDisplay.textContent = p.qty;
+        items.forEach(p => {
+          const item = document.createElement('div');
+          item.className = 'product-item' + (p.checked ? ' checked' : '');
 
-        const plusBtn = document.createElement('button');
-        plusBtn.className = 'qty-btn';
-        plusBtn.textContent = '+';
-        plusBtn.title = 'Meer';
-        plusBtn.addEventListener('click', () => changeQty(p.id, 1));
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.checked = p.checked;
+          cb.addEventListener('change', () => toggleProduct(p.id));
 
-        qtyControl.appendChild(minBtn);
-        qtyControl.appendChild(qtyDisplay);
-        qtyControl.appendChild(plusBtn);
+          const span = document.createElement('span');
+          span.className = 'product-name';
+          span.textContent = p.name;
 
-        const delBtn = document.createElement('button');
-        delBtn.className = 'delete-btn';
-        delBtn.textContent = '🗑';
-        delBtn.title = 'Verwijder ' + p.name;
-        delBtn.addEventListener('click', () => deleteProduct(p.id));
+          const qtyControl = document.createElement('div');
+          qtyControl.className = 'qty-control';
+          const minBtn = document.createElement('button');
+          minBtn.className = 'qty-btn';
+          minBtn.textContent = '−';
+          minBtn.addEventListener('click', () => changeQty(p.id, -1));
+          const qtyDisplay = document.createElement('span');
+          qtyDisplay.className = 'qty-display';
+          qtyDisplay.textContent = p.qty;
+          const plusBtn = document.createElement('button');
+          plusBtn.className = 'qty-btn';
+          plusBtn.textContent = '+';
+          plusBtn.addEventListener('click', () => changeQty(p.id, 1));
+          qtyControl.appendChild(minBtn);
+          qtyControl.appendChild(qtyDisplay);
+          qtyControl.appendChild(plusBtn);
 
-        item.appendChild(cb);
-        item.appendChild(span);
-        item.appendChild(qtyControl);
-        item.appendChild(delBtn);
-        list.appendChild(item);
+          const editBtn = document.createElement('button');
+          editBtn.className = 'edit-btn';
+          editBtn.textContent = '✏️';
+          editBtn.title = 'Bewerk ' + p.name;
+          editBtn.addEventListener('click', () => openModal(p.id));
+
+          const delBtn = document.createElement('button');
+          delBtn.className = 'delete-btn';
+          delBtn.textContent = '🗑';
+          delBtn.title = 'Verwijder ' + p.name;
+          delBtn.addEventListener('click', () => deleteProduct(p.id));
+
+          item.appendChild(cb);
+          item.appendChild(span);
+          item.appendChild(qtyControl);
+          item.appendChild(editBtn);
+          item.appendChild(delBtn);
+          itemList.appendChild(item);
+        });
+
+        section.appendChild(itemList);
+        list.appendChild(section);
       });
     }
   </script>
