@@ -68,6 +68,12 @@
       padding: 3px 10px; cursor: pointer; transition: background 0.15s;
     }
     .clear-btn:hover { background: #fff1f2; }
+    .print-btn {
+      font-size: 13px; color: #1a2e05; background: none;
+      border: 1px solid #a3e635; border-radius: 6px;
+      padding: 3px 10px; cursor: pointer; transition: background 0.15s;
+    }
+    .print-btn:hover { background: #ecfccb; }
 
     .category-section { margin-bottom: 1.25rem; }
 
@@ -205,7 +211,10 @@
 
     <div class="toolbar">
       <div id="count" class="count" style="visibility:hidden;"></div>
-      <button class="clear-btn" id="clearBtn" onclick="clearAll()" style="display:none;">Wis alles</button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="print-btn" onclick="printList()">🖨 Afdrukken</button>
+        <button class="clear-btn" id="clearBtn" onclick="clearAll()" style="display:none;">Wis alles</button>
+      </div>
     </div>
 
     <div id="productList"></div>
@@ -327,6 +336,68 @@
       products = []; save(); render();
     }
 
+    function printList() {
+      const style = `
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, sans-serif; color: #1a2e05; background: #fff; padding: 2rem; }
+        h1 { font-size: 20px; font-weight: 500; margin-bottom: 1.25rem; }
+        .category-section { margin-bottom: 1.25rem; page-break-inside: avoid; }
+        .category-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .category-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #4d7c0f; }
+        .category-line { flex: 1; height: 1px; background: #d9f99d; }
+        .category-count { font-size: 11px; color: #86a856; }
+        .product-item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border: 1px solid #d9f99d; border-radius: 6px; margin-bottom: 4px; }
+        .product-item.checked { background: #d9f99d; }
+        .product-item.checked .product-name { text-decoration: line-through; color: #3f6212; }
+        .checkbox { width: 13px; height: 13px; border: 1.5px solid #65a30d; border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .checkbox.ticked { background: #65a30d; }
+        .checkbox.ticked::after { content: ''; display: block; width: 7px; height: 4px; border-left: 1.5px solid #fff; border-bottom: 1.5px solid #fff; transform: rotate(-45deg) translateY(-1px); }
+        .product-name { flex: 1; font-size: 14px; }
+        .product-qty { font-size: 13px; color: #4d7c0f; background: #ecfccb; border: 1px solid #d9f99d; border-radius: 5px; padding: 1px 7px; }
+        .footer { margin-top: 1.5rem; font-size: 11px; color: #86a856; }
+      `;
+
+      const grouped = {};
+      products.forEach(p => {
+        const cat = p.category || 'Overig';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(p);
+      });
+
+      const CATEGORY_ORDER = ['Groente','Fruit','Zuivel','Vlees','Vis','Brood','Dranken','Diepvries','Snacks','Huishouden','Overig'];
+      const orderedCats = CATEGORY_ORDER.filter(c => grouped[c]);
+      const extraCats = Object.keys(grouped).filter(c => !CATEGORY_ORDER.includes(c));
+      const allCats = [...orderedCats, ...extraCats];
+
+      let body = '<h1>Productenlijst</h1>';
+      allCats.forEach(cat => {
+        const items = grouped[cat].slice().sort((a,b) => a.name.localeCompare(b.name, 'nl'));
+        body += `<div class="category-section">
+          <div class="category-header">
+            <span class="category-label">${cat}</span>
+            <div class="category-line"></div>
+            <span class="category-count">${items.length}</span>
+          </div>`;
+        items.forEach(p => {
+          body += `<div class="product-item${p.checked ? ' checked' : ''}">
+            <div class="checkbox${p.checked ? ' ticked' : ''}"></div>
+            <span class="product-name">${p.name}</span>
+            <span class="product-qty">× ${p.qty}</span>
+          </div>`;
+        });
+        body += '</div>';
+      });
+
+      const date = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+      body += `<div class="footer">Afgedrukt op ${date} · ${products.length} product${products.length !== 1 ? 'en' : ''}</div>`;
+
+      const win = window.open('', '_blank');
+      win.document.write(`<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8"><title>Productenlijst</title><style>${style}</style></head><body>${body}</body></html>`);
+      win.document.close();
+      win.focus();
+      win.print();
+    }
+
     render();
 
     function render() {
@@ -384,6 +455,7 @@
         const itemList = document.createElement('div');
         itemList.className = 'product-list';
 
+        items.sort((a,b) => a.name.localeCompare(b.name, 'nl'));
         items.forEach(p => {
           const item = document.createElement('div');
           item.className = 'product-item' + (p.checked ? ' checked' : '');
