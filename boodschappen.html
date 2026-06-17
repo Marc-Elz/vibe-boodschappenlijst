@@ -158,10 +158,14 @@
   </div>
 
   <script>
-    let products = [];
+    let products = JSON.parse(localStorage.getItem('producten') || '[]');
 
     const input = document.getElementById('productInput');
     input.addEventListener('keydown', e => { if (e.key === 'Enter') addProduct(); });
+
+    function save() {
+      localStorage.setItem('producten', JSON.stringify(products));
+    }
 
     function addProduct() {
       const name = input.value.trim();
@@ -169,19 +173,24 @@
       products.push({ id: Date.now(), name, checked: false });
       input.value = '';
       input.focus();
+      save();
       render();
     }
 
     function deleteProduct(id) {
       products = products.filter(p => p.id !== id);
+      save();
       render();
     }
 
     function toggleProduct(id) {
       const p = products.find(p => p.id === id);
       if (p) p.checked = !p.checked;
+      save();
       render();
     }
+
+    render();
 
     function render() {
       const list = document.getElementById('productList');
